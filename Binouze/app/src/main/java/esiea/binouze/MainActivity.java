@@ -1,6 +1,9 @@
 package esiea.binouze;
 
+import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -20,6 +23,60 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
 
         ActionBar actionBar = getSupportActionBar();
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+
+        ActionBar.Tab tab = actionBar.newTab().setText(R.string.menu_category).setTabListener(new ActionBar.TabListener() {
+            @Override
+            public void onTabSelected(ActionBar.Tab tab, android.support.v4.app.FragmentTransaction fragmentTransaction) {
+
+            }
+
+            @Override
+            public void onTabUnselected(ActionBar.Tab tab, android.support.v4.app.FragmentTransaction fragmentTransaction) {
+
+            }
+
+            @Override
+            public void onTabReselected(ActionBar.Tab tab, android.support.v4.app.FragmentTransaction fragmentTransaction) {
+
+            }
+        });
+        actionBar.addTab(tab);
+        tab = actionBar.newTab().setText(R.string.menu_country).setTabListener(new ActionBar.TabListener() {
+            @Override
+            public void onTabSelected(ActionBar.Tab tab, android.support.v4.app.FragmentTransaction fragmentTransaction) {
+
+            }
+
+            @Override
+            public void onTabUnselected(ActionBar.Tab tab, android.support.v4.app.FragmentTransaction fragmentTransaction) {
+
+            }
+
+            @Override
+            public void onTabReselected(ActionBar.Tab tab, android.support.v4.app.FragmentTransaction fragmentTransaction) {
+
+            }
+        });
+        actionBar.addTab(tab);
+        tab = actionBar.newTab().setText(R.string.menu_top5).setTabListener(new ActionBar.TabListener() {
+            @Override
+            public void onTabSelected(ActionBar.Tab tab, android.support.v4.app.FragmentTransaction fragmentTransaction) {
+
+            }
+
+            @Override
+            public void onTabUnselected(ActionBar.Tab tab, android.support.v4.app.FragmentTransaction fragmentTransaction) {
+
+            }
+
+            @Override
+            public void onTabReselected(ActionBar.Tab tab, android.support.v4.app.FragmentTransaction fragmentTransaction) {
+
+            }
+        });
+        actionBar.addTab(tab);
+
         actionBar.show();
     }
 

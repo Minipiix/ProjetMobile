@@ -8,10 +8,9 @@
     <string name="action_search">Search</string>
 
     <!-- Frame button label-->
-    <string name="button_biere_search">Bieres</string>
-    <string name="button_category">Categorie</string>
-    <string name="button_country">Pays</string>
-    <string name="button_top5">Top 5</string>
+    <string name="menu_category">Categorie</string>
+    <string name="menu_country">Pays</string>
+    <string name="menu_top5">Top 5</string>
 
 
 </resources>

@@ -1,4 +1,4 @@
-package esiea.binouze;
+package esiea.binouze.services;
 
 import android.util.Log;
 

@@ -2,8 +2,8 @@ package esiea.binouze;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBar.Tab;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -52,7 +52,7 @@ public class MainActivity extends ActionBarActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
-        ActionBar.Tab tab = actionBar.newTab().setText(R.string.menu_category).setTabListener(new FragmentTabListener<CategoryFragment>(this, "category", CategoryFragment.class));
+        Tab tab = actionBar.newTab().setText(R.string.menu_category).setTabListener(new FragmentTabListener<CategoryFragment>(this, "category", CategoryFragment.class));
         actionBar.addTab(tab);
 
 

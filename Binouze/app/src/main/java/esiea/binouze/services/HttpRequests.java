@@ -16,6 +16,8 @@ import java.net.URISyntaxException;
 public class HttpRequests {
 
     private final static String BIERE_URL = "binouze.fabrigli.fr/bieres";
+    private final static String CATEGORIES_URL = "binouze.fabrigli.fr/categories";
+    private final static String COUNTRIES_URL = "binouze.fabrigli.fr/countries";
 
     // Récupère la liste des bières
     public static String getBieres() {
@@ -41,6 +43,62 @@ public class HttpRequests {
             resultat = getHttpResponse(url);
         } catch (URISyntaxException e) {
             Log.e("[GET BIERES]", "L'url donnée n'est pas correcte", e);
+        }
+        return resultat;
+    }
+
+    // Récupère la liste des catégories
+    public static String getCategories() {
+
+        // Construit l'url pour acceder à la liste des categories
+        String url = CATEGORIES_URL + ".json";
+        String resultat = null;
+        try {
+            resultat = getHttpResponse(url);
+        } catch (URISyntaxException e) {
+            Log.e("[GET CATEGORY]", "L'url donnée n'est pas correcte", e);
+        }
+        return resultat;
+    }
+
+    // Récupère la categorie demandée
+    public static String getCategorie(Integer numCategorie) {
+
+        // Construit l'url pour acceder à la liste des categories
+        String url = CATEGORIES_URL + "/" + numCategorie + ".json";
+        String resultat = null;
+        try {
+            resultat = getHttpResponse(url);
+        } catch (URISyntaxException e) {
+            Log.e("[GET CATEGORY]", "L'url donnée n'est pas correcte", e);
+        }
+        return resultat;
+    }
+
+    // Récupère la liste des pays
+    public static String getCountries() {
+
+        // Construit l'url pour acceder à la liste des pays
+        String url = COUNTRIES_URL + ".json";
+        String resultat = null;
+        try {
+            resultat = getHttpResponse(url);
+        } catch (URISyntaxException e) {
+            Log.e("[GET COUNTRY]", "L'url donnée n'est pas correcte", e);
+        }
+        return resultat;
+    }
+
+    // Récupère le pays demandé
+    public static String getCountry(Integer numCountry) {
+
+        // Construit l'url pour acceder à la liste des pays
+        String url = CATEGORIES_URL + "/" + numCountry + ".json";
+        String resultat = null;
+        try {
+            resultat = getHttpResponse(url);
+        } catch (URISyntaxException e) {
+            Log.e("[GET COUNTRY]", "L'url donnée n'est pas correcte", e);
         }
         return resultat;
     }

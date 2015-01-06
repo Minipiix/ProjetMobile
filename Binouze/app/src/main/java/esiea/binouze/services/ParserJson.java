@@ -10,6 +10,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import esiea.binouze.model.Beer;
+import esiea.binouze.model.Category;
+import esiea.binouze.model.Country;
 
 public class ParserJson {
 
@@ -50,6 +52,33 @@ public class ParserJson {
 
         return biere;
     }
+
+    // méthode qui récupère un objet Pays depuis un json
+    public static Country getPaysFromJson(String json) throws JSONException {
+        JSONObject jsonObject = new JSONObject(json);
+
+        Country country = new Country();
+        country.setId(jsonObject.getInt(KEY_ID));
+        country.setName(jsonObject.getString(KEY_NAME));
+        country.setImage(jsonObject.getString(KEY_IMAGE));
+
+        return country;
+    }
+
+    // méthode qui récupère un objet Categorie depuis un json
+    public static Category getCategorieFromJson(String json) throws JSONException {
+        JSONObject jsonObject = new JSONObject(json);
+
+        Category category = new Category();
+        category.setId(jsonObject.getInt(KEY_ID));
+        category.setName(jsonObject.getString(KEY_NAME));
+        category.setDescription(jsonObject.getString(KEY_DESCRPTION));
+        category.setCreated_at(parseDate(jsonObject.getString(KEY_CREATED_AT)));
+        category.setUpdated_at(parseDate(jsonObject.getString(KEY_UPDATED_AT)));
+
+        return category;
+    }
+
 
     // Méthode qui récupère la date depuis le fichier json
     private static Date parseDate(String dateString) {

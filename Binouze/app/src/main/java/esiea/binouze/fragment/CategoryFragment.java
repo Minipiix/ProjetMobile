@@ -11,13 +11,15 @@ import android.widget.ArrayAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import esiea.binouze.R;
+import esiea.binouze.adapter.CategoryAdapter;
 import esiea.binouze.model.Category;
 import esiea.binouze.services.GetDataService;
 import esiea.binouze.services.ParserJsonService;
 
 public class CategoryFragment extends ListFragment {
 
-    private List<String> values;
+    private Category[] categories;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -30,18 +32,16 @@ public class CategoryFragment extends ListFragment {
         super.onCreate(savedInstanceState);
 
         String jsonValues = GetDataService.getCategories(getActivity());
-        List<Category> categories = ParserJsonService.getCategoriesListFromJson(jsonValues);
+        List<Category> categoriesList = ParserJsonService.getCategoriesListFromJson(jsonValues);
 
-        values = new ArrayList<>();
-        for (Category category : categories) {
-            values.add(category.getName());
-        }
+        categories = new Category[categoriesList.size()];
+        categoriesList.toArray(categories); // fill the array
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, values);
+        CategoryAdapter adapter = new CategoryAdapter(getActivity(), R.layout.category_list_row, categories);
         setListAdapter(adapter);
 
         // Inflate the layout for this fragment

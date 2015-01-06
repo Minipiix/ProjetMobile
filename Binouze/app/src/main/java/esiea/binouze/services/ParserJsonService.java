@@ -2,18 +2,21 @@ package esiea.binouze.services;
 
 import android.util.Log;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import esiea.binouze.model.Beer;
 import esiea.binouze.model.Category;
 import esiea.binouze.model.Country;
 
-public class ParserJson {
+public class ParserJsonService {
 
     private final static String KEY_ID = "id";
     private final static String KEY_NAME = "name";
@@ -34,23 +37,23 @@ public class ParserJson {
     public static Beer getBiereFromJson(String json) throws JSONException {
         JSONObject jsonObject = new JSONObject(json);
 
-        Beer biere = new Beer();
-        biere.setId(jsonObject.getInt(KEY_ID));
-        biere.setName(jsonObject.getString(KEY_NAME));
-        biere.setDescription(jsonObject.getString(KEY_DESCRPTION));
-        biere.setCountry(jsonObject.getString(KEY_COUNTRY));
-        biere.setBuveur(jsonObject.getString(KEY_BUVEUR));
-        biere.setNote(jsonObject.getInt(KEY_NOTE));
-        biere.setNote_moyenne(jsonObject.getInt(KEY_NOTE_MOYENNE));
-        biere.setNumber_of_notes(jsonObject.getInt(KEY_NUMBER_OF_NOTE));
-        biere.setImage(jsonObject.getString(KEY_IMAGE));
-        biere.setThumb(jsonObject.getString(KEY_THUMB));
-        biere.setCategory_id(jsonObject.getInt(KEY_CATEGORY_ID));
-        biere.setCategory(jsonObject.getString(KEY_CATEGORY));
-        biere.setCreated_at(parseDate(jsonObject.getString(KEY_CREATED_AT)));
-        biere.setUpdated_at(parseDate(jsonObject.getString(KEY_UPDATED_AT)));
+        Beer beer = new Beer();
+        beer.setId(jsonObject.getInt(KEY_ID));
+        beer.setName(jsonObject.getString(KEY_NAME));
+        beer.setDescription(jsonObject.getString(KEY_DESCRPTION));
+        beer.setCountry(jsonObject.getString(KEY_COUNTRY));
+        beer.setBuveur(jsonObject.getString(KEY_BUVEUR));
+        beer.setNote(jsonObject.getInt(KEY_NOTE));
+        beer.setNote_moyenne(jsonObject.getInt(KEY_NOTE_MOYENNE));
+        beer.setNumber_of_notes(jsonObject.getInt(KEY_NUMBER_OF_NOTE));
+        beer.setImage(jsonObject.getString(KEY_IMAGE));
+        beer.setThumb(jsonObject.getString(KEY_THUMB));
+        beer.setCategory_id(jsonObject.getInt(KEY_CATEGORY_ID));
+        beer.setCategory(jsonObject.getString(KEY_CATEGORY));
+        beer.setCreated_at(parseDate(jsonObject.getString(KEY_CREATED_AT)));
+        beer.setUpdated_at(parseDate(jsonObject.getString(KEY_UPDATED_AT)));
 
-        return biere;
+        return beer;
     }
 
     // méthode qui récupère un objet Pays depuis un json
@@ -63,6 +66,21 @@ public class ParserJson {
         country.setImage(jsonObject.getString(KEY_IMAGE));
 
         return country;
+    }
+
+    public static List<Category> getCategoriesListFromJson(String json) {
+        List<Category> categories = new ArrayList<>();
+        try {
+            JSONArray jsonArray = new JSONArray(json);
+            for(int i=0;i<jsonArray.length();i++)
+            {
+                Category category = getCategorieFromJson(jsonArray.getString(i));
+                categories.add(category);
+            }
+        } catch (JSONException e) {
+            Log.e("[CATEGORY JSON PARSING]", "Impossible de parser les categories récuperées", e);
+        }
+        return categories;
     }
 
     // méthode qui récupère un objet Categorie depuis un json
@@ -83,7 +101,7 @@ public class ParserJson {
     // Méthode qui récupère la date depuis le fichier json
     private static Date parseDate(String dateString) {
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssz");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 
         Date result = null;
         try {

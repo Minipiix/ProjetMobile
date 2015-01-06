@@ -29,7 +29,7 @@
         android:autoText="false"
         android:editable="true"
         android:inputType="text"
-        android:text="nom"
+        android:text="Tapez le nom de votre bière"
         android:textSize="25dp"
         android:textIsSelectable="true"
         android:width="@dimen/dialog_fixed_width_major"

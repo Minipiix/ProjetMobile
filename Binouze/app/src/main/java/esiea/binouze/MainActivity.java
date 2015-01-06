@@ -87,6 +87,23 @@ public class MainActivity extends ActionBarActivity {
             }
         });
         actionBar.addTab(tab);
+        tab = actionBar.newTab().setText(R.string.menu_game).setTabListener(new ActionBar.TabListener() {
+            @Override
+            public void onTabSelected(ActionBar.Tab tab, android.support.v4.app.FragmentTransaction fragmentTransaction) {
+
+            }
+
+            @Override
+            public void onTabUnselected(ActionBar.Tab tab, android.support.v4.app.FragmentTransaction fragmentTransaction) {
+
+            }
+
+            @Override
+            public void onTabReselected(ActionBar.Tab tab, android.support.v4.app.FragmentTransaction fragmentTransaction) {
+
+            }
+        });
+        actionBar.addTab(tab);
 
         actionBar.show();
 

@@ -68,6 +68,21 @@ public class ParserJsonService {
         return country;
     }
 
+    public static List<Country> getCountriesListFromJson(String json) {
+        List<Country> countries = new ArrayList<>();
+        try {
+            JSONArray jsonArray = new JSONArray(json);
+            for(int i=0;i<jsonArray.length();i++)
+            {
+                Country country = getPaysFromJson(jsonArray.getString(i));
+                countries.add(country);
+            }
+        } catch (JSONException e) {
+            Log.e("[CATEGORY JSON PARSING]", "Impossible de parser les categories récuperées", e);
+        }
+        return countries;
+    }
+
     public static List<Category> getCategoriesListFromJson(String json) {
         List<Category> categories = new ArrayList<>();
         try {

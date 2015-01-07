@@ -11,9 +11,9 @@ public class Beer {
     private String country;
     private String buveur;
 
-    private Integer note;
-    private Integer note_moyenne;
-    private Integer number_of_notes;
+    private String note;
+    private String note_moyenne;
+    private String number_of_notes;
 
     private String image;
     private String thumb;
@@ -64,27 +64,27 @@ public class Beer {
         this.buveur = buveur;
     }
 
-    public Integer getNote() {
+    public String getNote() {
         return note;
     }
 
-    public void setNote(Integer note) {
+    public void setNote(String note) {
         this.note = note;
     }
 
-    public Integer getNote_moyenne() {
+    public String getNote_moyenne() {
         return note_moyenne;
     }
 
-    public void setNote_moyenne(Integer note_moyenne) {
+    public void setNote_moyenne(String note_moyenne) {
         this.note_moyenne = note_moyenne;
     }
 
-    public Integer getNumber_of_notes() {
+    public String getNumber_of_notes() {
         return number_of_notes;
     }
 
-    public void setNumber_of_notes(Integer number_of_notes) {
+    public void setNumber_of_notes(String number_of_notes) {
         this.number_of_notes = number_of_notes;
     }
 

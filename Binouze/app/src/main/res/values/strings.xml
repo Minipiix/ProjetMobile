@@ -2,7 +2,8 @@
 <resources>
 
     <string name="app_name">Binouze</string>
-    <string name="title">Choose your binouze</string>
+    <string name="beer_list">Beers</string>
+
     <string name="title_category">Categories</string>
     <string name="title_country">Pays</string>
     <string name="title_top5">Top 5</string>

@@ -27,45 +27,60 @@ public class ParserJsonService {
     private final static String KEY_NOTE_MOYENNE = "note_moyenne";
     private final static String KEY_NUMBER_OF_NOTE = "number_of_notes";
     private final static String KEY_IMAGE = "image";
+    private final static String KEY_URL = "url";
     private final static String KEY_THUMB = "thumb";
     private final static String KEY_CATEGORY_ID = "category_id";
     private final static String KEY_CATEGORY = "category";
     private final static String KEY_CREATED_AT = "created_at";
     private final static String KEY_UPDATED_AT = "updated_at";
 
+    public static List<Beer> getBeersListFromJson(String json) {
+        List<Beer> beers = new ArrayList<>();
+        try {
+        JSONArray jsonArray = new JSONArray(json);
+            for(int i=0;i<jsonArray.length();i++)
+            {
+                Beer beer = getBiereFromJson(jsonArray.getString(i));
+                beers.add(beer);
+            }
+        } catch (JSONException e) {
+                Log.e("[BEER JSON PARSING]", "Impossible de parser les bières récuperées", e);
+            }
+        return beers;
+    }
+
     // méthode qui récupère un objet Biere depuis un json
     public static Beer getBiereFromJson(String json) throws JSONException {
         JSONObject jsonObject = new JSONObject(json);
 
         Beer beer = new Beer();
-        beer.setId(jsonObject.getInt(KEY_ID));
-        beer.setName(jsonObject.getString(KEY_NAME));
-        beer.setDescription(jsonObject.getString(KEY_DESCRPTION));
-        beer.setCountry(jsonObject.getString(KEY_COUNTRY));
-        beer.setBuveur(jsonObject.getString(KEY_BUVEUR));
-        beer.setNote(jsonObject.getInt(KEY_NOTE));
-        beer.setNote_moyenne(jsonObject.getInt(KEY_NOTE_MOYENNE));
-        beer.setNumber_of_notes(jsonObject.getInt(KEY_NUMBER_OF_NOTE));
-        beer.setImage(jsonObject.getString(KEY_IMAGE));
-        beer.setThumb(jsonObject.getString(KEY_THUMB));
-        beer.setCategory_id(jsonObject.getInt(KEY_CATEGORY_ID));
-        beer.setCategory(jsonObject.getString(KEY_CATEGORY));
-        beer.setCreated_at(parseDate(jsonObject.getString(KEY_CREATED_AT)));
-        beer.setUpdated_at(parseDate(jsonObject.getString(KEY_UPDATED_AT)));
+        beer.setId(getIntegerFromJson(jsonObject, KEY_ID));
+        beer.setName(getStringFromJson(jsonObject, KEY_NAME));
+        beer.setDescription(getStringFromJson(jsonObject, KEY_DESCRPTION));
+        beer.setCountry(getStringFromJson(jsonObject, KEY_COUNTRY));
+        beer.setBuveur(getStringFromJson(jsonObject, KEY_BUVEUR));
+        beer.setNote(getStringFromJson(jsonObject, KEY_NOTE));
+        beer.setNote_moyenne(getStringFromJson(jsonObject, KEY_NOTE_MOYENNE));
+        beer.setNumber_of_notes(getStringFromJson(jsonObject, KEY_NUMBER_OF_NOTE));
+        beer.setCategory_id(getIntegerFromJson(jsonObject, KEY_CATEGORY_ID));
+        beer.setCategory(getStringFromJson(jsonObject, KEY_CATEGORY));
+        beer.setCreated_at(getDateFromJson(jsonObject, KEY_CREATED_AT));
+        beer.setUpdated_at(getDateFromJson(jsonObject, KEY_UPDATED_AT));
+
+        JSONObject image = getJSONObjectFromJson(jsonObject, KEY_IMAGE);
+        if (image != null) {
+            JSONObject image2 = getJSONObjectFromJson(image, KEY_IMAGE);
+            if (image2 != null) {
+                beer.setImage(getStringFromJson(image2, KEY_URL));
+
+                JSONObject thumb = getJSONObjectFromJson(image2, KEY_THUMB);
+                if (thumb != null) {
+                    beer.setThumb(getStringFromJson(thumb, KEY_URL));
+                }
+            }
+        }
 
         return beer;
-    }
-
-    // méthode qui récupère un objet Pays depuis un json
-    public static Country getPaysFromJson(String json) throws JSONException {
-        JSONObject jsonObject = new JSONObject(json);
-
-        Country country = new Country();
-        country.setId(jsonObject.getInt(KEY_ID));
-        country.setName(jsonObject.getString(KEY_NAME));
-        country.setImage(jsonObject.getString(KEY_IMAGE));
-
-        return country;
     }
 
     public static List<Country> getCountriesListFromJson(String json) {
@@ -74,13 +89,25 @@ public class ParserJsonService {
             JSONArray jsonArray = new JSONArray(json);
             for(int i=0;i<jsonArray.length();i++)
             {
-                Country country = getPaysFromJson(jsonArray.getString(i));
+                Country country = getCountryFromJson(jsonArray.getString(i));
                 countries.add(country);
             }
         } catch (JSONException e) {
-            Log.e("[CATEGORY JSON PARSING]", "Impossible de parser les categories récuperées", e);
+            Log.e("[CATEGORY JSON PARSING]", "Impossible de parser les pays récuperées", e);
         }
         return countries;
+    }
+
+    // méthode qui récupère un objet Pays depuis un json
+    public static Country getCountryFromJson(String json) throws JSONException {
+        JSONObject jsonObject = new JSONObject(json);
+
+        Country country = new Country();
+        country.setId(getIntegerFromJson(jsonObject, KEY_ID));
+        country.setName(getStringFromJson(jsonObject, KEY_NAME));
+        country.setImage(getStringFromJson(jsonObject, KEY_IMAGE));
+
+        return country;
     }
 
     public static List<Category> getCategoriesListFromJson(String json) {
@@ -103,28 +130,60 @@ public class ParserJsonService {
         JSONObject jsonObject = new JSONObject(json);
 
         Category category = new Category();
-        category.setId(jsonObject.getInt(KEY_ID));
-        category.setName(jsonObject.getString(KEY_NAME));
-        category.setDescription(jsonObject.getString(KEY_DESCRPTION));
-        category.setCreated_at(parseDate(jsonObject.getString(KEY_CREATED_AT)));
-        category.setUpdated_at(parseDate(jsonObject.getString(KEY_UPDATED_AT)));
+        category.setId(getIntegerFromJson(jsonObject, KEY_ID));
+        category.setName(getStringFromJson(jsonObject, KEY_NAME));
+        category.setDescription(getStringFromJson(jsonObject, KEY_DESCRPTION));
+        category.setCreated_at(getDateFromJson(jsonObject, KEY_CREATED_AT));
+        category.setUpdated_at(getDateFromJson(jsonObject, KEY_UPDATED_AT));
 
         return category;
     }
 
+    private static String getStringFromJson(JSONObject jsonObject, String key) {
+        String result = null;
+        try {
+            result = jsonObject.getString(key);
+        } catch (JSONException e) {
+            Log.w("[PARSE JSON]", "Cannot find string for key" + key);
+        }
+        return result;
+    }
+
+    private static Integer getIntegerFromJson(JSONObject jsonObject, String key) {
+        Integer result = null;
+        try {
+            result = jsonObject.getInt(key);
+        } catch (JSONException e) {
+            Log.w("[PARSE JSON]", "Cannot find Integer for key" + key);
+        }
+        return result;
+    }
+
+    private static JSONObject getJSONObjectFromJson(JSONObject jsonObject, String key) {
+        JSONObject result = null;
+        try {
+            result = jsonObject.getJSONObject(key);
+        } catch (JSONException e) {
+            Log.w("[PARSE JSON]", "Cannot find object for key" + key);
+        }
+        return result;
+    }
 
     // Méthode qui récupère la date depuis le fichier json
-    private static Date parseDate(String dateString) {
+    private static Date getDateFromJson(JSONObject jsonObject, String key) {
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 
         Date result = null;
         try {
+            String dateString = jsonObject.getString(key);
             if (dateString != null) {
                 result = simpleDateFormat.parse(dateString);
             }
         } catch (ParseException e) {
-            Log.e("[JSON PARSER]", "Error lors du parsing de la date " + dateString, e);
+            Log.w("[JSON PARSER]", "Error lors du parsing de la date", e);
+        } catch (JSONException e) {
+            Log.w("[PARSE JSON]", "Cannot find date for key" + key);
         }
         return result;
 

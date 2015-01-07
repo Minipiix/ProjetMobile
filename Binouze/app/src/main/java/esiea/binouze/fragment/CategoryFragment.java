@@ -1,5 +1,6 @@
 package esiea.binouze.fragment;
 
+import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
@@ -7,10 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import esiea.binouze.BeerListActivity;
 import esiea.binouze.R;
 import esiea.binouze.adapter.CategoryAdapter;
 import esiea.binouze.model.Category;
@@ -44,7 +47,17 @@ public class CategoryFragment extends ListFragment {
         CategoryAdapter adapter = new CategoryAdapter(getActivity(), R.layout.category_list_row, categories);
         setListAdapter(adapter);
 
-        // Inflate the layout for this fragment
         return super.onCreateView(inflater, container, savedInstanceState);
+    }
+
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
+        Category currentCategory = categories[position];
+
+        Intent myIntent = new Intent(getActivity(), BeerListActivity.class);
+        myIntent.putExtra(BeerListActivity.EXTRA_SORT_TYPE, BeerListActivity.SORT_TYPE_CATEGORY);
+        myIntent.putExtra(BeerListActivity.EXTRA_CATEGORY_ID, currentCategory.getId());
+        startActivity(myIntent);
     }
 }

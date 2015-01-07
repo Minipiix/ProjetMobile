@@ -4,28 +4,30 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import esiea.binouze.R;
-import esiea.binouze.fragment.BeerListFragment;
 
 /**
- * Created by Quentin on 07/01/2015.
+ * Created by Lucile on 07/01/2015.
  */
-public class BeerListActivity extends ActionBarActivity {
+public class BeerActivity extends ActionBarActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.beer_list_layout);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        setBeerListFragment();
+        handleIntent(getIntent());
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        handleIntent(intent);
     }
 
     @Override
@@ -54,16 +56,15 @@ public class BeerListActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void setBeerListFragment() {
-        Intent intent = getIntent();
-        Bundle bundle = new Bundle();
+    private void handleIntent(Intent intent) {
+        setContentView(R.layout.beer_page_layout);
 
-        Fragment fragment = new BeerListFragment();
-        fragment.setArguments(getIntent().getExtras());
+        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+            String query = intent.getStringExtra(SearchManager.QUERY);
 
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.beer_list_fragment, fragment).commit();
+            TextView textView = (TextView) findViewById(R.id.textView);
+            textView.setText(query);
+        }
     }
-
 
 }

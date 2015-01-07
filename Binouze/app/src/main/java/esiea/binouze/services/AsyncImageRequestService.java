@@ -15,15 +15,26 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-public class AsyncImageRequestService extends AsyncTask<String, Integer, Bitmap> {
+public class AsyncImageRequestService extends AsyncTask<String, Integer, Map<String, Bitmap>> {
+
+    private final static String IMAGE_URL = "http://www.binouze.fabrigli.fr";
 
     @Override
-    protected Bitmap doInBackground(String... urls) {
-        if(urls != null && urls.length != 0) {
-            return getImage(urls[0]);
+    protected Map<String, Bitmap> doInBackground(String... urls) {
+        Map<String, Bitmap> map = new HashMap<>();
+        if(urls != null) {
+            for (String url : urls) {
+                Bitmap image = getImage(IMAGE_URL + url);
+                if(image != null) {
+                    map.put(url, image);
+                }
+            }
         }
-        return null;
+        return map;
     }
 
     // Méthode qui recupère une image sur le net

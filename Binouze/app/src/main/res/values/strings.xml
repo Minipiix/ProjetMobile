@@ -20,5 +20,10 @@
     <string name="menu_top5">Top 5</string>
     <string name="menu_game">The Beer Game</string>
 
+    <!-- Beer page label -->
+    <string name="beer_category">Categorie : </string>
+    <string name="beer_country">Country : </string>
+    <string name="beer_note_moyenne">Note moyenne :</string>
+
 
 </resources>

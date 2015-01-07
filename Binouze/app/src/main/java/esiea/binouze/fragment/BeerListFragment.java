@@ -1,11 +1,13 @@
 package esiea.binouze.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,8 +15,11 @@ import java.util.Comparator;
 import java.util.List;
 
 import esiea.binouze.R;
+import esiea.binouze.activity.BeerActivity;
+import esiea.binouze.activity.BeerListActivity;
 import esiea.binouze.adapter.BeerAdapter;
 import esiea.binouze.model.Beer;
+import esiea.binouze.model.Category;
 import esiea.binouze.services.GetDataService;
 import esiea.binouze.services.ParserJsonService;
 
@@ -64,6 +69,16 @@ public class BeerListFragment extends ListFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
+        Beer currentBeer = beers[position];
+
+        Intent myIntent = new Intent(getActivity(), BeerActivity.class);
+        myIntent.putExtra(BeerActivity.PARAM_ID, currentBeer.getId());
+        startActivity(myIntent);
     }
 
     private void getBeersByCategory(Integer category_id) {

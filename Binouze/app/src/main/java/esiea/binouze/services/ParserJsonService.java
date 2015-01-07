@@ -40,17 +40,17 @@ public class ParserJsonService {
         JSONArray jsonArray = new JSONArray(json);
             for(int i=0;i<jsonArray.length();i++)
             {
-                Beer beer = getBiereFromJson(jsonArray.getString(i));
+                Beer beer = getBeereFromJson(jsonArray.getString(i));
                 beers.add(beer);
             }
         } catch (JSONException e) {
-                Log.e("[BEER JSON PARSING]", "Impossible de parser les bières récuperées", e);
-            }
+            Log.e("[BEER JSON PARSING]", "Impossible de parser les bières récuperées", e);
+        }
         return beers;
     }
 
     // méthode qui récupère un objet Biere depuis un json
-    public static Beer getBiereFromJson(String json) throws JSONException {
+    public static Beer getBeereFromJson(String json) throws JSONException {
         JSONObject jsonObject = new JSONObject(json);
 
         Beer beer = new Beer();

@@ -11,8 +11,108 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="CACA"
-        android:id="@+id/textView"
+        android:id="@+id/beer_name"
+        android:textColor="#ffc1462a"
+        android:textSize="@dimen/abc_text_size_headline_material"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/beer_name"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:paddingTop="@dimen/abc_action_bar_icon_vertical_padding_material">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/beer_category"
+                android:id="@+id/beer_category"
+                android:textSize="@dimen/abc_text_size_medium_material" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/beer_category_content"
+                android:textSize="@dimen/abc_text_size_menu_material"
+                android:paddingLeft="@dimen/abc_action_bar_icon_vertical_padding_material"
+                android:singleLine="true" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/beer_country"
+                android:id="@+id/beer_country"
+                android:textSize="@dimen/abc_text_size_medium_material" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/beer_country_content"
+                android:textSize="@dimen/abc_text_size_menu_material"
+                android:paddingLeft="@dimen/abc_action_bar_icon_vertical_padding_material"
+                android:singleLine="true" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/beer_note_moyenne"
+                android:id="@+id/beer_note_moyenne"
+                android:textSize="@dimen/abc_text_size_medium_material"
+                android:focusableInTouchMode="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/beer_note_moyenne_content"
+                android:textSize="@dimen/abc_text_size_menu_material"
+                android:paddingLeft="@dimen/abc_action_bar_icon_vertical_padding_material"
+                android:singleLine="true" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:paddingTop="@dimen/abc_action_bar_default_height_material">
+
+            <ImageView
+                android:layout_width="@android:dimen/thumbnail_height"
+                android:layout_height="@android:dimen/thumbnail_width"
+                android:id="@+id/beer_image_content" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/beer_description_content"
+                android:textSize="@dimen/abc_text_size_medium_material"
+                android:paddingLeft="@dimen/abc_action_bar_icon_vertical_padding_material" />
+        </LinearLayout>
+
+    </LinearLayout>
+
 </RelativeLayout>

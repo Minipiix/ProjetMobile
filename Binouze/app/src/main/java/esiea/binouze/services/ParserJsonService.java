@@ -57,7 +57,6 @@ public class ParserJsonService {
         beer.setId(getIntegerFromJson(jsonObject, KEY_ID));
         beer.setName(getStringFromJson(jsonObject, KEY_NAME));
         beer.setDescription(getStringFromJson(jsonObject, KEY_DESCRPTION));
-        beer.setCountry(getStringFromJson(jsonObject, KEY_COUNTRY));
         beer.setBuveur(getStringFromJson(jsonObject, KEY_BUVEUR));
         beer.setNote(getStringFromJson(jsonObject, KEY_NOTE));
         beer.setNote_moyenne(getStringFromJson(jsonObject, KEY_NOTE_MOYENNE));
@@ -66,6 +65,12 @@ public class ParserJsonService {
         beer.setCategory(getStringFromJson(jsonObject, KEY_CATEGORY));
         beer.setCreated_at(getDateFromJson(jsonObject, KEY_CREATED_AT));
         beer.setUpdated_at(getDateFromJson(jsonObject, KEY_UPDATED_AT));
+
+        JSONObject country = getJSONObjectFromJson(jsonObject, KEY_COUNTRY);
+        if (country != null) {
+            beer.setCountry_id(getIntegerFromJson(country, KEY_ID));
+            beer.setCountry(getStringFromJson(country, KEY_NAME));
+        }
 
         JSONObject image = getJSONObjectFromJson(jsonObject, KEY_IMAGE);
         if (image != null) {
@@ -144,7 +149,7 @@ public class ParserJsonService {
         try {
             result = jsonObject.getString(key);
         } catch (JSONException e) {
-            Log.w("[PARSE JSON]", "Cannot find string for key" + key);
+            Log.d("[PARSE JSON]", "Cannot find string for key" + key);
         }
         return result;
     }
@@ -154,7 +159,7 @@ public class ParserJsonService {
         try {
             result = jsonObject.getInt(key);
         } catch (JSONException e) {
-            Log.w("[PARSE JSON]", "Cannot find Integer for key" + key);
+            Log.d("[PARSE JSON]", "Cannot find Integer for key" + key);
         }
         return result;
     }
@@ -164,7 +169,7 @@ public class ParserJsonService {
         try {
             result = jsonObject.getJSONObject(key);
         } catch (JSONException e) {
-            Log.w("[PARSE JSON]", "Cannot find object for key" + key);
+            Log.d("[PARSE JSON]", "Cannot find object for key" + key);
         }
         return result;
     }
@@ -181,9 +186,9 @@ public class ParserJsonService {
                 result = simpleDateFormat.parse(dateString);
             }
         } catch (ParseException e) {
-            Log.w("[JSON PARSER]", "Error lors du parsing de la date", e);
+            Log.d("[JSON PARSER]", "Error lors du parsing de la date", e);
         } catch (JSONException e) {
-            Log.w("[PARSE JSON]", "Cannot find date for key" + key);
+            Log.d("[PARSE JSON]", "Cannot find date for key" + key);
         }
         return result;
 

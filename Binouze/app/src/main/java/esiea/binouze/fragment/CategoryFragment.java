@@ -36,7 +36,7 @@ public class CategoryFragment extends ListFragment {
         List<Category> categoriesList = ParserJsonService.getCategoriesListFromJson(jsonValues);
 
         categories = new Category[categoriesList.size()];
-        categoriesList.toArray(categories); // fill the array
+        categoriesList.toArray(categories);
     }
 
     @Override
@@ -55,7 +55,7 @@ public class CategoryFragment extends ListFragment {
 
         Intent myIntent = new Intent(getActivity(), BeerListActivity.class);
         myIntent.putExtra(BeerListFragment.PARAM_SORT_TYPE, BeerListFragment.SORT_TYPE_CATEGORY);
-        myIntent.putExtra(BeerListFragment.PARAM_CATEGORY_ID, currentCategory.getId());
+        myIntent.putExtra(BeerListFragment.PARAM_ID, currentCategory.getId());
         startActivity(myIntent);
     }
 }

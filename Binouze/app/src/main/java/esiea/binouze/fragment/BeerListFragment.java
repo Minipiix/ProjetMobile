@@ -20,10 +20,11 @@ public class BeerListFragment extends ListFragment {
 
     // Param keys
     public final static String PARAM_SORT_TYPE = "sort_type";
-    public final static String PARAM_CATEGORY_ID = "category_id";
+    public final static String PARAM_ID = "id";
 
     /// sort types
     public final static String SORT_TYPE_CATEGORY = "sort_type_category";
+    public final static String SORT_TYPE_COUNTRY = "sort_type_country";
 
     private Beer[] beers;
 
@@ -33,18 +34,20 @@ public class BeerListFragment extends ListFragment {
         super.onCreate(savedInstanceState);
 
         String sortType = null;
-        Integer category_id = null;
+        Integer id = null;
 
         // get sort type from params
         Bundle bundle = getArguments();
         if (bundle != null) {
             sortType = bundle.getString(PARAM_SORT_TYPE);
-            category_id = bundle.getInt(PARAM_CATEGORY_ID);
+            id = bundle.getInt(PARAM_ID);
         }
 
         // get beer list
         if (SORT_TYPE_CATEGORY.equals(sortType)) {
-            getBeersByCategory(category_id);
+            getBeersByCategory(id);
+        } else if (SORT_TYPE_COUNTRY.equals(sortType)) {
+            getBeersByCountry(id);
         }
 
         if (beers != null){
@@ -64,6 +67,26 @@ public class BeerListFragment extends ListFragment {
             List<Beer> allBeers = ParserJsonService.getBeersListFromJson(jsonValues);
             for (Beer beer : allBeers) {
                 if (beer.getCategory_id() != null && beer.getCategory_id().equals(category_id)){
+                    selectedBeers.add(beer);
+                }
+            }
+        }
+
+        beers = new Beer[selectedBeers.size()];
+        selectedBeers.toArray(beers);
+    }
+
+    private void getBeersByCountry(Integer country_id) {
+
+        List<Beer> selectedBeers = new ArrayList<>();
+
+        if(country_id == null) {
+            getAllBeers();
+        } else {
+            String jsonValues = GetDataService.getBieres(getActivity());
+            List<Beer> allBeers = ParserJsonService.getBeersListFromJson(jsonValues);
+            for (Beer beer : allBeers) {
+                if (beer.getCountry_id() != null && beer.getCountry_id().equals(country_id)){
                     selectedBeers.add(beer);
                 }
             }

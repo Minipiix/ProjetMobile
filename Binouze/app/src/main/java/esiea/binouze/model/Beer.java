@@ -8,7 +8,6 @@ public class Beer {
     private String name;
 
     private String description;
-    private String country;
     private String buveur;
 
     private String note;
@@ -17,6 +16,9 @@ public class Beer {
 
     private String image;
     private String thumb;
+
+    private Integer country_id;
+    private String country;
 
     private Integer category_id;
     private String category;
@@ -46,14 +48,6 @@ public class Beer {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
     }
 
     public String getBuveur() {
@@ -102,6 +96,22 @@ public class Beer {
 
     public void setThumb(String thumb) {
         this.thumb = thumb;
+    }
+
+    public Integer getCountry_id() {
+        return country_id;
+    }
+
+    public void setCountry_id(Integer country_id) {
+        this.country_id = country_id;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 
     public Integer getCategory_id() {

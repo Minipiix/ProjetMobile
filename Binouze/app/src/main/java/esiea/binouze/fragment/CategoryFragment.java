@@ -7,13 +7,11 @@ import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import esiea.binouze.BeerListActivity;
+import esiea.binouze.activity.BeerListActivity;
 import esiea.binouze.R;
 import esiea.binouze.adapter.CategoryAdapter;
 import esiea.binouze.model.Category;
@@ -56,8 +54,8 @@ public class CategoryFragment extends ListFragment {
         Category currentCategory = categories[position];
 
         Intent myIntent = new Intent(getActivity(), BeerListActivity.class);
-        myIntent.putExtra(BeerListActivity.EXTRA_SORT_TYPE, BeerListActivity.SORT_TYPE_CATEGORY);
-        myIntent.putExtra(BeerListActivity.EXTRA_CATEGORY_ID, currentCategory.getId());
+        myIntent.putExtra(BeerListFragment.PARAM_SORT_TYPE, BeerListFragment.SORT_TYPE_CATEGORY);
+        myIntent.putExtra(BeerListFragment.PARAM_CATEGORY_ID, currentCategory.getId());
         startActivity(myIntent);
     }
 }

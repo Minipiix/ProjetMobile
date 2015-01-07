@@ -1,4 +1,4 @@
-package esiea.binouze;
+package esiea.binouze.activity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import esiea.binouze.fragment.FragmentTabListener;
+import esiea.binouze.R;
 import esiea.binouze.fragment.BeerGameFragment;
 import esiea.binouze.fragment.CategoryFragment;
 import esiea.binouze.fragment.CountryFragment;

@@ -1,4 +1,4 @@
-package esiea.binouze;
+package esiea.binouze.fragment;
 
 import android.os.Bundle;
 

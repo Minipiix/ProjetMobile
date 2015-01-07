@@ -3,6 +3,7 @@ package esiea.binouze.activity;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -54,15 +55,25 @@ public class BeerListActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+     public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        setContentView(R.layout.beer_list_layout);
+    }
+
     public void setBeerListFragment() {
         Intent intent = getIntent();
         Bundle bundle = new Bundle();
+
+        getSupportFragmentManager().popBackStack();
 
         Fragment fragment = new BeerListFragment();
         fragment.setArguments(getIntent().getExtras());
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.beer_list_fragment, fragment).commit();
+        ft.add(R.id.beer_list_container, fragment);
+        ft.addToBackStack(null);
+        ft.commit();
     }
 
 

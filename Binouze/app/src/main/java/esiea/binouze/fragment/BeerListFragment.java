@@ -1,6 +1,7 @@
 package esiea.binouze.fragment;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,9 +30,8 @@ public class BeerListFragment extends ListFragment {
     private Beer[] beers;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-
-        super.onCreate(savedInstanceState);
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
 
         String sortType = null;
         Integer id = null;
@@ -54,6 +54,11 @@ public class BeerListFragment extends ListFragment {
             BeerAdapter adapter = new BeerAdapter(getActivity(), R.layout.beer_list_row, beers);
             setListAdapter(adapter);
         }
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
 
     private void getBeersByCategory(Integer category_id) {

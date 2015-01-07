@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import esiea.binouze.R;
@@ -26,6 +28,7 @@ public class BeerListFragment extends ListFragment {
     /// sort types
     public final static String SORT_TYPE_CATEGORY = "sort_type_category";
     public final static String SORT_TYPE_COUNTRY = "sort_type_country";
+    public final static String SORT_TYPE_TOP_5 = "sort_type_top5";
 
     private Beer[] beers;
 
@@ -48,6 +51,8 @@ public class BeerListFragment extends ListFragment {
             getBeersByCategory(id);
         } else if (SORT_TYPE_COUNTRY.equals(sortType)) {
             getBeersByCountry(id);
+        } else if (SORT_TYPE_TOP_5.equals(sortType)) {
+            getBeersTop();
         }
 
         if (beers != null){
@@ -99,6 +104,35 @@ public class BeerListFragment extends ListFragment {
 
         beers = new Beer[selectedBeers.size()];
         selectedBeers.toArray(beers);
+    }
+
+    private void getBeersTop() {
+
+        List<Beer> selectedBeers = new ArrayList<>();
+
+        String jsonValues = GetDataService.getBieres(getActivity());
+        List<Beer> allBeers = ParserJsonService.getBeersListFromJson(jsonValues);
+
+        List<Beer> sortedBeers = new ArrayList<>(allBeers);
+        Collections.sort(sortedBeers, new Comparator<Beer>() {
+            @Override
+            public int compare(Beer beer1, Beer beer2) {
+                String note1 = beer1.getNote_moyenne();
+                String note2 = beer2.getNote_moyenne();
+                if(note1 == null && note2 == null) {
+                    return 0;
+                } else if (note1 == null &&  note2 != null) {
+                    return -1;
+                } else if(note1 != null &&  note2 == null) {
+                    return 1;
+                } else {
+                    return note1.compareTo(note2);
+                }
+            }
+        });
+
+        beers = new Beer[5];
+        sortedBeers.subList(0, 5).toArray(beers);
     }
 
     private void getAllBeers() {

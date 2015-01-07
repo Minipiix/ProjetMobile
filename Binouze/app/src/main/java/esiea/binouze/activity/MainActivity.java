@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBar.Tab;
 import android.support.v7.app.ActionBarActivity;
@@ -12,12 +14,12 @@ import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import esiea.binouze.fragment.BeerListFragment;
 import esiea.binouze.fragment.FragmentTabListener;
 import esiea.binouze.R;
 import esiea.binouze.fragment.BeerGameFragment;
 import esiea.binouze.fragment.CategoryFragment;
 import esiea.binouze.fragment.CountryFragment;
-import esiea.binouze.fragment.TopFiveFragment;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -70,8 +72,9 @@ public class MainActivity extends ActionBarActivity {
         tab = actionBar.newTab().setText(R.string.menu_country).setTabListener(new FragmentTabListener<CountryFragment>(this, "country", CountryFragment.class));
         actionBar.addTab(tab);
 
-
-        tab = actionBar.newTab().setText(R.string.menu_top5).setTabListener(new FragmentTabListener<TopFiveFragment>(this, "top5", TopFiveFragment.class));
+        Bundle args = new Bundle();
+        args.putString(BeerListFragment.PARAM_SORT_TYPE, BeerListFragment.SORT_TYPE_TOP_5);
+        tab = actionBar.newTab().setText(R.string.menu_top5).setTabListener(new FragmentTabListener<BeerListFragment>(this, "top5", BeerListFragment.class, args));
         actionBar.addTab(tab);
 
         tab = actionBar.newTab().setText(R.string.menu_game).setTabListener(new FragmentTabListener<BeerGameFragment>(this, "beerGame", BeerGameFragment.class));

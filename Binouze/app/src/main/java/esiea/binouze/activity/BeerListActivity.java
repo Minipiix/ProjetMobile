@@ -62,13 +62,10 @@ public class BeerListActivity extends ActionBarActivity {
     }
 
     public void setBeerListFragment() {
-        Intent intent = getIntent();
-        Bundle bundle = new Bundle();
-
-        getSupportFragmentManager().popBackStack();
-
         Fragment fragment = new BeerListFragment();
         fragment.setArguments(getIntent().getExtras());
+
+        getSupportFragmentManager().popBackStack();
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.add(R.id.beer_list_container, fragment);

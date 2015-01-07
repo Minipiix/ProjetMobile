@@ -8,6 +8,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar.Tab;
 import android.support.v7.app.ActionBar.TabListener;
 
+import esiea.binouze.activity.MainActivity;
+
 public class FragmentTabListener<T extends Fragment> implements TabListener {
     private Fragment mFragment;
     private final FragmentActivity mActivity;
@@ -24,6 +26,16 @@ public class FragmentTabListener<T extends Fragment> implements TabListener {
         mClass = clz;
         mfragmentContainerId = android.R.id.content;
         mfragmentArgs = new Bundle();
+    }
+
+    // This version defaults to replacing the entire activity content area
+    // new FragmentTabListener<SomeFragment>(this, "first", SomeFragment.class))
+    public FragmentTabListener(FragmentActivity activity, String tag, Class<T> clz, Bundle args) {
+        mActivity = activity;
+        mTag = tag;
+        mClass = clz;
+        mfragmentContainerId = android.R.id.content;
+        mfragmentArgs = args;
     }
 
     // This version supports specifying the container to replace with fragment content
